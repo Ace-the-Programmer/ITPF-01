@@ -1,0 +1,234 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package calamansifarm;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.border.TitledBorder;
+
+public class Calamansifarm {
+
+    public static void main(String[] args) {
+        showStartMenu();
+    }
+
+    private static void showStartMenu() {
+        // Create the frame for the Start Menu
+        JFrame frame = new JFrame("CALAMANSI FARM SYSTEM");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 500);
+        frame.setLayout(new BorderLayout());
+
+        // Welcome panel
+        JPanel welcomePanel = new JPanel();
+        welcomePanel.setLayout(new GridLayout(2, 1));
+        JLabel welcomeLabel = new JLabel("WELCOME", SwingConstants.CENTER);
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        welcomePanel.add(welcomeLabel);
+        JLabel pressEnterLabel = new JLabel("Press Start", SwingConstants.CENTER);
+        welcomePanel.add(pressEnterLabel);
+        frame.add(welcomePanel, BorderLayout.NORTH);
+
+        // Main Menu Panel
+        JPanel mainMenuPanel = new JPanel();
+        JButton startButton = new JButton("Start");
+        JButton exitButton = new JButton("Exit");
+        startButton.setPreferredSize(new Dimension(250, 50));
+        exitButton.setPreferredSize(new Dimension(250, 50));
+        mainMenuPanel.add(startButton);
+        mainMenuPanel.add(exitButton);
+        frame.add(mainMenuPanel, BorderLayout.SOUTH);
+
+        // Start button action
+        startButton.addActionListener(e -> {
+            frame.dispose(); // Close the current frame
+            showCalamansiFarm();
+        });
+
+        // Exit button action
+        exitButton.addActionListener(e -> System.exit(0));
+
+        frame.setVisible(true);
+    }
+
+    private static void showCalamansiFarm() {
+        // Create the frame for the Calamansi Farm System
+        JFrame frame = new JFrame("CALAMANSI FARM SYSTEM");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 500);
+        frame.setLayout(new BorderLayout());
+
+        // Welcome panel
+        JPanel welcomePanel = new JPanel();
+        welcomePanel.setLayout(new GridLayout(2, 1));
+        JLabel welcomeLabel = new JLabel("WELCOME", SwingConstants.CENTER);
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        welcomePanel.add(welcomeLabel);
+        JLabel pressEnterLabel = new JLabel("Calamansi Farm System", SwingConstants.CENTER);
+        welcomePanel.add(pressEnterLabel);
+        frame.add(welcomePanel, BorderLayout.NORTH);
+
+        // Main Menu Panel
+        JPanel mainMenuPanel = new JPanel();
+        JButton mainMenuButton = new JButton("Main Menu");
+        JButton exitButton = new JButton("Exit");
+        mainMenuButton.setPreferredSize(new Dimension(250, 50));
+        exitButton.setPreferredSize(new Dimension(250, 50));
+        mainMenuPanel.add(mainMenuButton);
+        mainMenuPanel.add(exitButton);
+        frame.add(mainMenuPanel, BorderLayout.SOUTH);
+
+        // Tabbed Pane for Maintenance and Harvest sections
+        JTabbedPane tabbedPane = new JTabbedPane();
+        frame.add(tabbedPane, BorderLayout.CENTER);
+
+        // Maintenance Tab
+        JPanel maintenanceContainer = createSectionContainer("Maintenance", new Color(255, 240, 220));
+        JPanel maintenancePanel = createMaintenancePanel();
+        maintenanceContainer.add(maintenancePanel);
+        tabbedPane.add("MAINTENANCE", maintenanceContainer);
+
+        // Harvest Tab
+        JPanel harvestContainer = createSectionContainer("Harvest", new Color(220, 255, 220));
+        JPanel harvestPanel = createHarvestPanel();
+        harvestContainer.add(harvestPanel);
+        tabbedPane.add("HARVEST", harvestContainer);
+
+        // Main Menu button action
+        mainMenuButton.addActionListener(e -> {
+            frame.dispose(); // Close the current frame
+            showStartMenu();
+        });
+
+        // Exit button action
+        exitButton.addActionListener(e -> System.exit(0));
+
+        frame.setVisible(true);
+    }
+
+    private static JPanel createMaintenancePanel() {
+        JPanel maintenancePanel = new JPanel();
+        maintenancePanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.LINE_END;
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        // Fields and labels
+        JTextField irrigationCostField = new JTextField(6);
+        JTextField fertilizerField = new JTextField(6);
+        JTextField pesticideField = new JTextField(6);
+        JTextField gasField = new JTextField(6);
+        JTextField grassCuttingField = new JTextField(6);
+
+        JLabel irrigationCostLabel = new JLabel("Irrigation Cost:");
+        JLabel fertilizerLabel = new JLabel("Fertilizer:");
+        JLabel pesticideLabel = new JLabel("Pesticide:");
+        JLabel gasLabel = new JLabel("Gas:");
+        JLabel grassCuttingLabel = new JLabel("Grass Cutting:");
+
+        // Fonts
+        Font largerFont = new Font("Arial", Font.PLAIN, 16);
+        irrigationCostLabel.setFont(largerFont);
+        fertilizerLabel.setFont(largerFont);
+        pesticideLabel.setFont(largerFont);
+        gasLabel.setFont(largerFont);
+        grassCuttingLabel.setFont(largerFont);
+
+        irrigationCostField.setFont(largerFont);
+        fertilizerField.setFont(largerFont);
+        pesticideField.setFont(largerFont);
+        gasField.setFont(largerFont);
+        grassCuttingField.setFont(largerFont);
+
+        // Add fields to panel
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        maintenancePanel.add(createFieldPanel(irrigationCostLabel, irrigationCostField), gbc);
+
+        gbc.gridy++;
+        maintenancePanel.add(createFieldPanel(fertilizerLabel, fertilizerField), gbc);
+
+        gbc.gridy++;
+        maintenancePanel.add(createFieldPanel(pesticideLabel, pesticideField), gbc);
+
+        gbc.gridy++;
+        maintenancePanel.add(createFieldPanel(gasLabel, gasField), gbc);
+
+        gbc.gridy++;
+        maintenancePanel.add(createFieldPanel(grassCuttingLabel, grassCuttingField), gbc);
+
+        return maintenancePanel;
+    }
+
+    private static JPanel createHarvestPanel() {
+        JPanel harvestPanel = new JPanel();
+        harvestPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.LINE_END;
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        // Fields and labels
+        JTextField priceGoodField = new JTextField(8);
+        JTextField priceRejectField = new JTextField(8);
+        JTextField qtyGoodField = new JTextField(8);
+        JTextField qtyRejectField = new JTextField(8);
+
+        JLabel priceGoodLabel = new JLabel("Price of Good Calamansi:");
+        JLabel priceRejectLabel = new JLabel("Price of Reject Calamansi:");
+        JLabel qtyGoodLabel = new JLabel("Quantity of Good Calamansi:");
+        JLabel qtyRejectLabel = new JLabel("Quantity of Reject Calamansi:");
+
+        Font largerFont = new Font("Arial", Font.PLAIN, 16);
+        priceGoodLabel.setFont(largerFont);
+        priceRejectLabel.setFont(largerFont);
+        qtyGoodLabel.setFont(largerFont);
+        qtyRejectLabel.setFont(largerFont);
+
+        priceGoodField.setFont(largerFont);
+        priceRejectField.setFont(largerFont);
+        qtyGoodField.setFont(largerFont);
+        qtyRejectField.setFont(largerFont);
+
+        // Add fields to panel
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        harvestPanel.add(createFieldPanel(priceGoodLabel, priceGoodField), gbc);
+
+        gbc.gridy++;
+        harvestPanel.add(createFieldPanel(priceRejectLabel, priceRejectField), gbc);
+
+        gbc.gridy++;
+        harvestPanel.add(createFieldPanel(qtyGoodLabel, qtyGoodField), gbc);
+
+        gbc.gridy++;
+        harvestPanel.add(createFieldPanel(qtyRejectLabel, qtyRejectField), gbc);
+
+        return harvestPanel;
+    }
+
+    private static JPanel createFieldPanel(JLabel label, JTextField field) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel.add(label);
+        panel.add(field);
+        return panel;
+    }
+
+    private static JPanel createSectionContainer(String title, Color color) {
+        JPanel container = new JPanel();
+        container.setLayout(new BorderLayout());
+        container.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(Color.BLACK),
+                title, TitledBorder.LEFT, TitledBorder.TOP));
+        container.setBackground(color);
+        return container;
+    }
+}
