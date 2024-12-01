@@ -1,0 +1,204 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package farmmanagementgui;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class FarmManagementGUI {
+    public static void main(String[] args) {
+        // Create the frame for the main window with a smaller size
+        JFrame frame = new JFrame("CALAMANSI FARM SYSTEM");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 400); // Reduced size
+        frame.setLayout(new BorderLayout());
+
+        // Welcome panel with smaller font size
+        JPanel welcomePanel = new JPanel();
+        welcomePanel.setLayout(new GridLayout(2, 1));
+        JLabel welcomeLabel = new JLabel("WELCOME", SwingConstants.CENTER);
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 20)); // Smaller font size
+        welcomePanel.add(welcomeLabel);
+        JLabel pressEnterLabel = new JLabel("Press Enter", SwingConstants.CENTER);
+        welcomePanel.add(pressEnterLabel);
+        frame.add(welcomePanel, BorderLayout.NORTH);
+
+        // Main Menu Panel with smaller buttons
+        JPanel mainMenuPanel = new JPanel();
+        JButton mainMenuButton = new JButton("Main Menu");
+        JButton exitButton = new JButton("Exit");
+        mainMenuButton.setPreferredSize(new Dimension(400, 300)); // Reduced button size
+        exitButton.setPreferredSize(new Dimension(400, 300)); // Reduced button size
+        mainMenuPanel.add(mainMenuButton);
+        mainMenuPanel.add(exitButton);
+        frame.add(mainMenuPanel, BorderLayout.SOUTH);
+
+        // Tabbed Pane for Maintenance and Harvest sections
+        JTabbedPane tabbedPane = new JTabbedPane();
+        frame.add(tabbedPane, BorderLayout.CENTER);
+
+        // Maintenance tab with smaller fields
+        JPanel maintenancePanel = new JPanel();
+        maintenancePanel.setLayout(new GridLayout(6, 2, 10, 10)); // Reduced spacing
+
+        JTextField irrigationCostField = new JTextField(8); // Smaller field size
+        JTextField fertilizerField = new JTextField(8); // Smaller field size
+        JTextField pesticideField = new JTextField(8); // Smaller field size
+        JTextField gasField = new JTextField(8); // Smaller field size
+        JTextField grassCuttingField = new JTextField(8); // Smaller field size
+
+        maintenancePanel.add(new JLabel("Irrigation Cost:"));
+        maintenancePanel.add(irrigationCostField);
+        maintenancePanel.add(new JLabel("Fertilizer:"));
+        maintenancePanel.add(fertilizerField);
+        maintenancePanel.add(new JLabel("Pesticide:"));
+        maintenancePanel.add(pesticideField);
+        maintenancePanel.add(new JLabel("Gas:"));
+        maintenancePanel.add(gasField);
+        maintenancePanel.add(new JLabel("Grass Cutting:"));
+        maintenancePanel.add(grassCuttingField);
+
+        JButton computeMaintenanceButton = new JButton("Compute Maintenance Cost");
+        maintenancePanel.add(computeMaintenanceButton);
+        tabbedPane.add("MAINTENANCE", maintenancePanel);
+
+        // Harvest tab with GridBagLayout and smaller text fields
+        JPanel harvestPanel = new JPanel();
+        harvestPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.LINE_END; // Align to the right
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        JTextField priceGoodField = new JTextField(8); // Smaller field width
+        JTextField priceRejectField = new JTextField(8); // Smaller field width
+        JTextField qtyGoodField = new JTextField(8); // Smaller field width
+        JTextField qtyRejectField = new JTextField(8); // Smaller field width
+        JTextField salaryFarmersField = new JTextField(8); // Smaller field width
+        JTextField totalEarnedField = new JTextField(8); // Smaller field width
+        totalEarnedField.setEditable(false);
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        harvestPanel.add(new JLabel("Price of Good Calamansi per Redbag:"), gbc);
+        gbc.gridx = 1;
+        harvestPanel.add(priceGoodField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        harvestPanel.add(new JLabel("Price of Reject Calamansi per Redbag:"), gbc);
+        gbc.gridx = 1;
+        harvestPanel.add(priceRejectField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        harvestPanel.add(new JLabel("Quantity of Good Calamansi Redbag:"), gbc);
+        gbc.gridx = 1;
+        harvestPanel.add(qtyGoodField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        harvestPanel.add(new JLabel("Quantity of Reject Calamansi Redbag:"), gbc);
+        gbc.gridx = 1;
+        harvestPanel.add(qtyRejectField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        harvestPanel.add(new JLabel("Salary of Farmers:"), gbc);
+        gbc.gridx = 1;
+        harvestPanel.add(salaryFarmersField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        harvestPanel.add(new JLabel("Total Earned Money:"), gbc);
+        gbc.gridx = 1;
+        harvestPanel.add(totalEarnedField, gbc);
+
+        JButton computeHarvestButton = new JButton("Compute Total Income");
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
+        harvestPanel.add(computeHarvestButton, gbc);
+        tabbedPane.add("HARVEST", harvestPanel);
+
+        // Action listener for Compute Maintenance Cost
+        computeMaintenanceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    double irrigationCost = Double.parseDouble(irrigationCostField.getText());
+                    double fertilizer = Double.parseDouble(fertilizerField.getText());
+                    double pesticide = Double.parseDouble(pesticideField.getText());
+                    double gas = Double.parseDouble(gasField.getText());
+                    double grassCutting = Double.parseDouble(grassCuttingField.getText());
+
+                    // Calculate total maintenance cost
+                    double totalMaintenanceCost = irrigationCost + fertilizer + pesticide + gas + grassCutting;
+
+                    // Show a new JFrame with the maintenance cost details
+                    JFrame maintenanceFrame = new JFrame("Maintenance Costs");
+                    maintenanceFrame.setSize(300, 200); // Smaller size
+                    maintenanceFrame.setLayout(new GridLayout(6, 1, 10, 10));
+                    maintenanceFrame.add(new JLabel("Maintenance Costs:"));
+                    maintenanceFrame.add(new JLabel("Irrigation Cost: " + irrigationCost));
+                    maintenanceFrame.add(new JLabel("Fertilizer: " + fertilizer));
+                    maintenanceFrame.add(new JLabel("Pesticide: " + pesticide));
+                    maintenanceFrame.add(new JLabel("Total Maintenance Cost: " + totalMaintenanceCost));
+                    maintenanceFrame.setVisible(true);
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(frame, "Please enter valid numbers for costs.");
+                }
+            }
+        });
+
+        // Action listener for Compute Total Income
+        computeHarvestButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    double priceGood = Double.parseDouble(priceGoodField.getText());
+                    double priceReject = Double.parseDouble(priceRejectField.getText());
+                    int qtyGood = Integer.parseInt(qtyGoodField.getText());
+                    int qtyReject = Integer.parseInt(qtyRejectField.getText());
+                    double salaryFarmers = Double.parseDouble(salaryFarmersField.getText());
+
+                    // Calculate total earned money
+                    double totalPriceGood = priceGood * qtyGood;
+                    double totalPriceReject = priceReject * qtyReject;
+                    double totalEarnedMoney = totalPriceGood + totalPriceReject + salaryFarmers;
+
+                    totalEarnedField.setText(String.valueOf(totalEarnedMoney));
+
+                    // Show a new JFrame with the results
+                    JFrame resultsFrame = new JFrame("Harvest Results");
+                    resultsFrame.setSize(300, 200); // Smaller size
+                    resultsFrame.setLayout(new GridLayout(6, 1, 10, 10));
+                    resultsFrame.add(new JLabel("Harvest Details:"));
+                    resultsFrame.add(new JLabel("Price of Good Calamansi: " + totalPriceGood));
+                    resultsFrame.add(new JLabel("Price of Reject Calamansi: " + totalPriceReject));
+                    resultsFrame.add(new JLabel("Salary of Farmers: " + salaryFarmers));
+                    resultsFrame.add(new JLabel("Total Earned Money: " + totalEarnedMoney));
+                    resultsFrame.setVisible(true);
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(frame, "Please enter valid numbers for harvest details.");
+                }
+            }
+        });
+
+        // Action listener for Exit Button
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        // Show the frame
+        frame.setVisible(true);
+    }
+}
